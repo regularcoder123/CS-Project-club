@@ -1,3 +1,4 @@
+quiz_results = []
 import random
 import pygame
 
@@ -7,7 +8,9 @@ if start == 'Start':
     start_cmd = True
 easy_questions = {
     "Expand: 5(x + 2)" : "5x + 10",
-    "Factor: 2x^2 + 6x" : "2x(x+3)", 
+    "Factor: 2x^2 + 6x" : "2x(x + 3)",
+    "Expand: 3(x^2 + 2x -1)": "3x^2+6x-3",
+    "Factor: 10x^3 + 5x^2" : "5x^2(2x + 1)"
 }
 medium_questions = {
     "Expand: (x+3)(x+7)" : "x^2+10x+21",
@@ -27,8 +30,10 @@ while start_cmd :
         print("Correct!")
         points += 1
         correct_questions += 1
+        quiz_results.append({'difficulty': 'easy', 'result': 'correct'})
     else:
         print(f"Incorrect! The correct answer is: {easy_questions[q1]}")
+        quiz_results.append({'difficulty': 'easy', 'result': 'incorrect'})
     if points == 1:
         q2 = random.choice(list(medium_questions.keys()))
         ans2 = input(q2 + " >> ")
@@ -36,12 +41,14 @@ while start_cmd :
             print("Correct!")
             points += 1
             correct_questions += 1
+            quiz_results.append({'difficulty': 'medium', 'result': 'correct'})
         else:
             print(f"Incorrect! The correct answer is: {medium_questions[q2]}")
             points -= 1
+            quiz_results.append({'difficulty': 'medium', 'result': 'incorrect'})
 
         if points == 2:
             print('Congrats on Finishing the Quiz!')
             print(f'You got {correct_questions} correct!')
             start_cmd = False
-    
+
